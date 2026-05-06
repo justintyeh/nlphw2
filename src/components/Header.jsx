@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { LogOut } from "lucide-react";
 import { currentUser, tabs } from "../data";
 
-export default function Header() {
-  const [activeTab, setActiveTab] = useState("assignments");
-
+export default function Header({ activeTab, onTabChange }) {
   return (
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200">
       <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -23,7 +20,7 @@ export default function Header() {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => onTabChange(tab.id)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 activeTab === tab.id
                   ? "bg-indigo-50 text-indigo-700"
