@@ -73,7 +73,7 @@ export default function AssignmentCard({
           isExpanded ? "max-h-[40rem] opacity-100" : "max-h-0 opacity-0"
         } overflow-hidden`}
       >
-        {mode === "view" && <ViewSubmissionPanel assignment={assignment} />}
+        {mode === "view" && <ViewSubmissionPanel assignment={assignment} onHide={() => onToggle(assignment.id, "view")} />}
         {mode === "upload" && (
           <UploadFilesPanel
             assignment={assignment}
@@ -85,7 +85,7 @@ export default function AssignmentCard({
   );
 }
 
-function ViewSubmissionPanel({ assignment }) {
+function ViewSubmissionPanel({ assignment, onHide }) {
   return (
     <div className="border-t border-gray-100 px-6 py-4 bg-gray-50/50">
       {/* Top bar */}
@@ -104,6 +104,7 @@ function ViewSubmissionPanel({ assignment }) {
             Submitted
           </span>
           <button
+            onClick={onHide}
             className="px-3 py-1.5 rounded-lg text-xs font-medium border border-purple-300 text-purple-700 hover:bg-purple-50 transition-colors"
           >
             Hide Submission
@@ -115,7 +116,7 @@ function ViewSubmissionPanel({ assignment }) {
       <div className="space-y-2">
         {assignment.files.map((file, i) => (
           <div
-            key={i}
+            key={file.filename}
             className="flex items-center gap-3 px-3 py-2 bg-white rounded-lg border border-gray-100"
           >
             <FileText size={16} className="text-gray-400 shrink-0" />
